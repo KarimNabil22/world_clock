@@ -7,7 +7,6 @@ class ChooseLocation extends StatefulWidget {
 }
 
 class _ChooseLocationState extends State<ChooseLocation> {
-
   List<WorldTime> locations = [
     WorldTime(url: 'Europe/London', location: 'London', flag: 'uk.png'),
     WorldTime(url: 'Europe/Athens', location: 'Athens', flag: 'greece.png'),
@@ -22,7 +21,7 @@ class _ChooseLocationState extends State<ChooseLocation> {
   void updateTime(index) async {
     WorldTime inestance = locations[index];
     await inestance.getTime();
-    // navigate to home screen
+
     Navigator.pop(context, {
       'location': inestance.location,
       'flag': inestance.flag,
@@ -36,36 +35,34 @@ class _ChooseLocationState extends State<ChooseLocation> {
     super.initState();
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[200],
-      appBar: AppBar(
-        backgroundColor: Colors.blue[900],
-        title: Text('Choose a Location'),
-        centerTitle: true,
-        elevation: 0,
-      ),
-      body: ListView.builder(
-          itemCount: locations.length,
-          itemBuilder: (context, index){
-            return Padding(
-              padding: const EdgeInsets.symmetric(vertical: 1.0, horizontal: 4.0),
-              child: Card(
-                child: ListTile(
-                  onTap: () {
-                    updateTime(index);
-                  },
-                  title: Text(locations[index].location),
-                  leading: CircleAvatar(
-                    backgroundImage: AssetImage('assets/${locations[index].flag}'),
-                  )
+        backgroundColor: Colors.grey[200],
+        appBar: AppBar(
+          backgroundColor: Colors.blue[900],
+          title: Text('Choose a Location'),
+          centerTitle: true,
+          elevation: 0,
+        ),
+        body: ListView.builder(
+            itemCount: locations.length,
+            itemBuilder: (context, index) {
+              return Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 1.0, horizontal: 4.0),
+                child: Card(
+                  child: ListTile(
+                      onTap: () {
+                        updateTime(index);
+                      },
+                      title: Text(locations[index].location),
+                      leading: CircleAvatar(
+                        backgroundImage:
+                            AssetImage('assets/${locations[index].flag}'),
+                      )),
                 ),
-              ),
-            );
-          }
-      )
-    );
+              );
+            }));
   }
 }
